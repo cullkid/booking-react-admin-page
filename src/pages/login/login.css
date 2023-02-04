@@ -1,0 +1,26 @@
+.lcontainer {
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 180px;
+  height: 100px;
+}
+.lcontainer .lcentered {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.lcontainer .lcentered .iparent .child {
+  width: 95%;
+  padding: 4px;
+}
+.lcontainer .lcentered .iparent button {
+  width: 100%;
+  background-color: rgb(5, 5, 171);
+  color: white;
+  font-weight: 500;
+  padding: 4px;
+  border: none;
+  cursor: pointer;
+}/*# sourceMappingURL=login.css.map */

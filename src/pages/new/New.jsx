@@ -3,9 +3,44 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
+import axios from "axios";
 
 const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
+  const [info, setInfo] = useState({});
+
+  const handleChange = (e) => {
+    setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+
+    //add the file to be submited when click the  send button
+    const data = new FormData(); //transforming the file status into a form
+    data.append("file", file); //transforming the file status into a form
+    data.append("upload_preset", "upload"); //to provide upload-preset
+
+    try {
+      //to upload img/files
+      const uploadRes = await axios.post(
+        "https://api.cloudinary.com/v1_1/dxmq5eyt2/image/upload",
+        data
+      );
+
+      const { url } = uploadRes.data; //sign the uploaded img/file to 'url'
+
+      const newUser = {
+        ...info, //info state contain the user/admin details
+        img: url,
+      };
+
+      //use the newuser to make a request and register/create newuser/newadmin
+      await axios.post("/auth/register", newUser);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="new">
@@ -43,10 +78,15 @@ const New = ({ inputs, title }) => {
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input type={input.type} placeholder={input.placeholder} />
+                  <input
+                    onChange={handleChange}
+                    type={input.type}
+                    placeholder={input.placeholder}
+                    id={input.id}
+                  />
                 </div>
               ))}
-              <button>Send</button>
+              <button onClick={handleClick}>Send</button>
             </form>
           </div>
         </div>
