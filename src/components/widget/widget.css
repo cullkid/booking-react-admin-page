@@ -26,7 +26,6 @@
 }
 .widget .left .link,
 .widget .right .link {
-  width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
   font-size: 12px;
