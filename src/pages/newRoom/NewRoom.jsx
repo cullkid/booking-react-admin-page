@@ -19,6 +19,7 @@ const NewRoom = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
+    console.log("rooms", rooms);
 
     //split throom numbers in textarea by commer and put them in object form
     const roomNumbers = rooms.split(",").map((room) => ({ number: room }));
